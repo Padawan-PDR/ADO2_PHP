@@ -1,0 +1,43 @@
+body
+{
+    background-color: rgb(22, 49, 69);
+}
+
+table
+  {
+    margin-bottom : .5em;
+    text-align: center;
+  }
+
+td, th 
+{
+    padding: .7em;
+    margin: 0;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+  
+  th
+  {
+    background-color: #13917c;
+  }
+  td
+  {
+    font-weight:bold;
+    background-color: #EEE;
+  }
+
+  td input 
+  {
+    border: 1px solid black;
+    padding: 3px;
+  }
+
+  .botao
+  {
+    text-align: center;
+    margin: 10px;
+    
+  }
+  
+  
