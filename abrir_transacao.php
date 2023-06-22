@@ -5,6 +5,4 @@
    $pdo->beginTransaction();
    $transacaoOk = false;
 
-?>  
-
-
+?>

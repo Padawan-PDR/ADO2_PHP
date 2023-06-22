@@ -1,16 +1,16 @@
-<!doctype  HTML>
+<?php
+    include_once('conectar.php');
+    include_once('operacoes.php');
+?>
+
+<!doctype HTML>
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
         <title>Operações</title>
         <link rel="stylesheet" href="styleSheet.css">
-
-        <?php
-            include('conectar.php');
-            include('operacoes.php');
-
-            
-        ?>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     </head>
     <body>
         <table>
@@ -28,17 +28,15 @@
                 <th>botao</th>
             </tr>
             <?php
-                $pdo = conectar();
                 
                 // Consulta de Produtos
-                $dados = listar();
-                tabela($dados);
-
-                // Preparar e executar a consulta SQL
-                $consulta = $pdo->prepare('SELECT COUNT(*) FROM Livro WHERE isbn = ?');
-                $count = $consulta->fetchColumn();
+                $dados = listarDados();
             ?>
-           
         </table>
+        <form>
+            
+        </form>
+        <a href="cadastrar.php"> Inserir </a>
+
     </body>
 </html>
