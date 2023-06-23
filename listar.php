@@ -1,5 +1,9 @@
 <?php
-    include_once('conectar.php');
+try
+{
+
+
+    require_once('conectar.php');
     include_once('operacoes.php');
 ?>
 
@@ -40,3 +44,11 @@
 
     </body>
 </html>
+<?php
+$transacaoOk = true;
+    } 
+    finally 
+    {
+        include_once('fechar_transacao.php');
+    }
+?>

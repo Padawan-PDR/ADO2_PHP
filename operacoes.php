@@ -28,15 +28,6 @@
             
 
             echo "<input type='hidden' name='id' value='". $row['id'] . "'>";
-            echo "<input type='hidden' name='livro_Titulo' value='" . $row['titulo'] . "'>";
-            echo "<input type='hidden' name='livro_Isbn' value='" . $row['isbn'] . "'>";
-            echo "<input type='hidden' name='livro_Ano_Publicacao' value='" . $row['ano_Publicacao'] . "'>";
-            echo "<input type='hidden' name='livro_Editora' value='" . $row['editora'] . "'>";
-            echo "<input type='hidden' name='livro_Autoria' value='" . $row['autoria'] . "'>";
-            echo "<input type='hidden' name='livro_Edicao' value='" . $row['edicao'] . "'>";
-            echo "<input type='hidden' name='livro_Paginas' value='" . $row['paginas'] . "'>";
-            echo "<input type='hidden' name='livro_Largura_mm' value='" . $row['largura_mm'] . "'>";
-            echo "<input type='hidden' name='livro_Altura_mm' value='" . $row['altura_mm'] . "'>";
             echo "<input type='hidden' name='modo_edicao' value='true'>"; // Campo oculto indicando o modo de edição
             echo "<input type='submit' value='Editar'>";
               
@@ -50,17 +41,7 @@
   function inserir($titulo, $isbn, $ano_Publicacao, $editora, $autoria, 
   $edicao, $paginas, $largura_mm, $altura_mm)
   {
-    // Conectar ao banco de dados
-    try 
-    {
       $pdo = conectar();
-    } 
-    catch (PDOException $e) 
-    {
-      // Tratar erro de conexão
-      echo "Erro ao conectar ao banco de dados: " . $e->getMessage();
-      exit();
-    }
 
     // Verificar se o valor de isbn já existe na tabela
     try 
@@ -105,42 +86,13 @@
 
   function alterar()
 {
-    // Conectar ao banco de dados
-    try 
-    {
       $pdo = conectar();
-    } 
-    catch (PDOException $e) 
-    {
-        // Tratar erro de conexão
-        echo "Erro ao conectar ao banco de dados: " . $e->getMessage();
-        exit();
-    }
-
-    // Verificar se o valor de isbn já existe na tabela
-    try 
-    {
-        $consulta = $pdo->prepare('SELECT COUNT(*) FROM Livro WHERE isbn = ?');
-        $consulta->execute([$isbn]);
-        $count = $consulta->fetchColumn();
-        if ($count > 0) 
-        {
-            echo 'Erro: Já existe um livro com este ISBN na tabela.';
-            exit();
-        }
-    } 
-    catch (PDOException $e) 
-    {
-        // Tratar erro de consulta
-        echo 'Erro na consulta: ' . $e->getMessage();
-        exit();
-    }
 
     // Preparar e executar a consulta SQL
     try 
     {
-        $cadastro = $pdo->prepare('UPDATE Livro SET titulo = ?, isbn = ?, ano_publicacao = ?, 
-        editora = ?, autoria = ?, edicao = ?, paginas = ?, largura_mm = ?, altura_mm = ?');
+        $cadastro = $pdo->prepare('UPDATE Livro SET titulo = ?, isbn = ?, ano_Publicacao = ?, 
+        editora = ?, autoria = ?, edicao = ?, paginas = ?, largura_mm = ?, altura_mm = ? WHERE id =');
         $cadastro->execute([$titulo, $isbn, $ano_Publicacao, 
         $editora, $autoria, $edicao, $paginas, $largura_mm, $altura_mm]);
 

@@ -3,7 +3,6 @@
     {
         include_once('abrir_transacao.php');
         require_once("operacoes.php");
-
         
 
     if ($_SERVER["REQUEST_METHOD"] == "GET") 
@@ -71,33 +70,34 @@
                 // Alteração
                 echo "<h2>Alterar Livro</h2>";
                 $id = $_GET['id'];
-                $pdo = conectar();
                 $stmt = $pdo->prepare("SELECT * FROM Livro WHERE id = ?");
                 $stmt->execute([$id]);
                 $livro = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($livro) 
                 {
-                    echo "<form method='post' action='cadastrar.php'>";
-                    echo "<input type='hidden' name='id' " . $_GET['id'] . ">";
+                    
+                    echo "<h1>ID " . $livro['id'] . "</h1>";
+                    echo "<form method='post' action='listar.php'>";
                     echo "<label>Título:</label>";
-                    echo "<input type='text' name='titulo' value='" .  $_GET['livro_Titulo'] . "' required><br>";
+                    echo "<input type='text' name='titulo' value='" .  $livro['titulo'] . "' required><br>";
                     echo "<label>ISBN:</label>";
-                    echo "<input type='text' name='isbn' value='" .  $_GET['livro_Isbn'] . "' required><br>";
+                    echo "<input type='text' name='isbn' value='" .  $livro['isbn'] . "' required><br>";
                     echo "<label>Ano de Publicação:</label>";
-                    echo "<input type='number' name='ano_publicacao' value='" .  $_GET['livro_Ano_Publicacao'] . "' required><br>";
+                    echo "<input type='date' name='ano_Publicacao' value='" .  $livro['ano_Publicacao'] . "' required><br>";
                     echo "<label>Editora:</label>";
-                    echo "<input type='text' name='editora' value='" .  $_GET['livro_Editora'] . "' required><br>";
+                    echo "<input type='text' name='editora' value='" .  $livro['editora'] . "' required><br>";
                     echo "<label>Autoria:</label>";
-                    echo "<input type='text' name='autoria' value='" .  $_GET['livro_Autoria'] . "' required><br>";
+                    echo "<input type='text' name='autoria' value='" .  $livro['autoria'] . "' required><br>";
                     echo "<label>Edição:</label>";
-                    echo "<input type='text' name='edicao' value='" .  $_GET['livro_Edicao'] . "' required><br>";
+                    echo "<input type='number' name='edicao' value='" .  $livro['edicao'] . "' required><br>";
                     echo "<label>Número de Páginas:</label>";
-                    echo "<input type='number' name='paginas' value='" .  $_GET['livro_Paginas'] . "' required><br>";
+                    echo "<input type='number' name='paginas' value='" .  $livro['paginas'] . "' required><br>";
                     echo "<label>Largura (mm):</label>";
-                    echo "<input type='number' name='largura_mm' value='" .  $_GET['livro_Largura_mm'] . "' required><br>";
+                    echo "<input type='number' name='largura_mm' value='" .  $livro['largura_mm'] . "' required><br>";
                     echo "<label>Altura (mm):</label>";
-                    echo "<input type='number' name='altura_mm' value='" .  $_GET['livro_Altura_mm'] . "' required><br>";
+                    echo "<input type='number' name='altura_mm' value='" .  $livro['altura_mm'] . "' required><br>";
+                    echo "<input type='hidden' value=' " . $_GET('id') . " '>";
                     echo "<input type='submit' value='Alterar'>";
                     echo "</form>";
                 }
@@ -129,7 +129,7 @@
                     echo "Livro alterado com sucesso. Redirecionando para a página de listagem...";
                     header("Location: listar.php");
                     exit();
-                } else {
+                } else {    
                     echo "Falha ao alterar o livro.";
                 }
             } 
